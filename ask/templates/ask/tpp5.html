@@ -1,0 +1,66 @@
+{% extends 'ask/base.html' %}
+<body>
+{%  block header %}
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark p-2" style="height:6em">
+          <a class="navbar-brand ml-3" href="{% url 'question_list'  %}">Ask Panichev</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <form class="form-control form-check-inline bg-dark border-0 mt-md-0 mr-5 ">
+              <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0 bg-white" type="submit">Ask</button>
+          </form>
+          <img src="img_00891.jpg" alt="text" width="60" height="60" class="rounded-circle">
+          <b class="col-2 ml">
+              <a class="navbar text-white" href="#">MyName</a>
+              <div class="row">
+                  <a class="navbar ml-3 text-white" href="#">Settings</a>
+                  <a class="navbar ml-3 text-white"  href="#" >Log out</a>
+              </div>
+          </b>
+      </nav>
+    </header>
+{% endblock header %}
+{%  block left_content %}
+        <div class="col-8 ">
+            <div class="d-flex flex-column flex-md-row px-md-4 bg-white">
+                <h2 class="navbar text-dark pl-0 pt-0">Settings:</h2>
+                <nav class="navbar pt-0">
+                    <h2 class="text-dark">My Name</h2>
+                </nav>
+            </div>
+            <div class="form-group-inline row mb-3">
+                <label for="" class="col-sm-2 col-form-label pl-5">Login</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="" placeholder="Login">
+                </div>
+            </div>
+            <div class="form-group-inline row mb-3">
+                <label for="" class="col-sm-2 col-form-label pl-5">Email</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group-inline row mb-3">
+                <label for="" class="col-sm-2 col-form-label pl-5">NickName</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="" placeholder="NickName">
+                </div>
+            </div>
+            <div class="form-group-inline row mb-3">
+                <label for="" class="col-sm-2 col-form-label pl-5">Avatar</label>
+                <div class="col-sm-3">
+                    <img src="img_00891.jpg" alt="text" width="110" height="110" class="rounded">
+                    <form class="form-control form-check-inline border-0 mt-3 mb-3 pr-0 mr-5 ">
+                        <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0 bg-success text-white" type="submit">Choose</button>
+                    </form>
+                    <button class="btn btn-outline-success mt-3 bg-success text-white" type="submit">Save</button>
+                </div>
+            </div>
+
+        </div>
+{% endblock left_content %}
+{% block pagination %}
+{% endblock pagination %}

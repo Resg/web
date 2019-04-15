@@ -1,0 +1,49 @@
+{% extends 'ask/base.html' %}
+{%  block header %}
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark  bg-dark m-0 p-2" style="height:6em">
+          <a class="navbar-brand ml-3" href="{% url 'question_list'  %}">Ask Panichev</a>
+          <form class="form-control form-check-inline bg-dark border-0 mt-md-0 mr-5 ">
+              <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0 bg-white" type="submit">Ask</button>
+          </form>
+          <b class="col-2 ml">
+              <div class="row">
+                  <a class="navbar ml-3 text-white" href="#">Log in</a>
+                  <a class="navbar ml-3 text-white"  href="#" >Register</a>
+              </div>
+          </b>
+      </nav>
+    </header>
+{% endblock header %}
+        {% block left_content %}
+            <div class="col-8">
+                <div class="d-flex flex-column flex-md-row px-md-4 bg-white">
+                    <h2 class="navbar text-dark pl-0 pt-0 ">New Question</h2>
+                </div>
+                <div class="form-group row ">
+                    <label for="" class="col-sm-2 col-form-label pl-5">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control " id="" placeholder="How to build a moon park">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label pl-5">Text</label>
+                    <div class="col-sm-10">
+                        <textarea type="text" class="form-control" style="height: 20em" id="" placeholder="Really, how?"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label pl-5">Tags</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="" placeholder="Tag">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col">
+                        <button class="btn btn-outline my-2 my-sm-0 bg-success text-dark" style="height:2.3em" type="submit">Ask!</button>
+                    </div>
+                </div>
+            </div>
+        {% endblock left_content %}

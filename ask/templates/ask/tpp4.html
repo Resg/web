@@ -1,0 +1,68 @@
+{% extends 'ask/base.html' %}
+{% block header %}
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark p-2" style="height:6em">
+          <a class="navbar-brand ml-3" href="{% url 'question_list'  %}">Ask Panichev</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <form class="form-control form-check-inline bg-dark border-0 mt-md-0 mr-5 ">
+              <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0 bg-white" type="submit">Ask</button>
+          </form>
+          <img src="img_00891.jpg" alt="text" width="60" height="60" class="rounded-circle">
+          <b class="col-2 ml">
+              <a class="navbar text-white" href="#">MyName</a>
+              <div class="row">
+                  <a class="navbar ml-3 text-white" href="#">Settings</a>
+                  <a class="navbar ml-3 text-white"  href="#" >Log out</a>
+              </div>
+          </b>
+      </nav>
+    </header>
+{% endblock header %}
+{% block left_content %}
+        <div class="col-8 ">
+            <div class="d-flex flex-column flex-md-row px-md-4 bg-white">
+                <h2 class="navbar text-dark pl-0 pt-0 pr-0">Tag:</h2>
+                <nav class="navbar pt-0">
+                    <h3 class="text-dark">{{ tag.title }}</h3>
+                </nav>
+            </div>
+            {% for question in questions %}
+            <div class="row border rounded ml-4 mb-4">
+                <div class="col-2  mt-2">
+                    <a class="row ml-2 mt-1 mb-1">
+                        <img src={{ MEDIA_URL }}{{ question.author.upload.url }} alt="img_00891.jpg" height="60" width="60" class="rounded">
+                    </a>
+                    <div class="row  mt-1 mb-1">
+                        <div class="mt-2 ml-4">
+                            <input style="width: 2em;" class="rounded-circle" >
+                        </div>
+                        <div class="col">
+                            <div>
+                                <a href="#" class="text-dark">&#9650;</a>
+                            </div>
+                            <div>
+                                <a href="#" class="text-dark">&#9660;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-10">
+                    <a class="navbar text-dark pl-0" href="#">
+                        <font size="+2">{{ question.title }}</font>
+                    </a>
+                    <a>{{ question.text }}</a>
+                    <div class="row">
+                        <a class="navbar" href="#">answer({{ question.answer_set.count }})</a>
+                        <a class="navbar" >Tags:</a>
+                        {% for t in question.tags.all %}
+                        <a class="navbar pl-1" href="{{ t }}" >{{ t.title }}</a>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+{% endblock left_content %}

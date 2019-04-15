@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" href="/home/serey/bootstrap-4.3.1-dist/css/bootstrap.css" type="text/css">-->
+    <link rel="stylesheet" href={%  static "ask/styles.css" %}>
+    <link rel="stylesheet" href={% static "ask/styles_my.css" %}>
+    <title>Sergey</title>
+</head>
+<body>
+{% block header %}
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark p-2" style="height:6em">
+          <a class="navbar-brand ml-3" href="{% url 'question_list'  %}">Ask Panichev</a>
+          <form class="form-control form-check-inline bg-dark border-0 mt-md-0 mr-5 ">
+              <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0 bg-white" type="submit">Ask</button>
+          </form>
+          <img src={% static "ask/img_00891.jpg" %} alt="text" width="60" height="60" class="rounded-circle">
+          <b class="col-2 ml">
+              <a class="navbar text-white" href="#">MyName</a>
+              <div class="row">
+                  <a class="navbar ml-3 text-white" href="settings">Settings</a>
+                  <a class="navbar ml-3 text-white"  href="login" >Log out</a>
+              </div>
+          </b>
+      </nav>
+    </header>
+{% endblock header %}
+<div class="row mt-3 mr-3">
+    {% block left_content %}
+        <div class="col-8 ">
+            <div class="d-flex flex-column flex-md-row px-md-4 bg-white">
+                <h2 class="navbar text-dark pl-0 pt-0">News</h2>
+                <nav class="navbar pt-0" href="#">
+                    <a class="text-dark" href="#">Hot Questions</a>
+                </nav>
+            </div>
+            {% for question in questions %}
+                <div class="row border rounded ml-4 mb-4">
+                    <div class="col-2 mt-2 ">
+                        <a class="row ml-2 mt-1 mb-1">
+                            <img src={{ MEDIA_URL }}{{ question.author.upload.url }} alt="img_00891.jpg" height="60" width="60" class="rounded">
+                        </a>
+                        <div class="row  mt-1 mb-1">
+                            <div class="mt-2 ml-4">
+                                <input style="width: 2em;" class="rounded-circle" >
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <a href="#" class="text-dark">&#9650;</a>
+                                </div>
+                                <div>
+                                    <a href="#" class="text-dark">&#9660;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <a class="navbar text-dark pl-0" href="{% url 'question' question.title%}">
+                            <font size="+2">{{ question.title }}</font>
+                        </a>
+                        <a>{{ question.text }}
+                        </a>
+                        <div class="row">
+                            <a class="navbar" href="{% url 'question' question.title%}">answers({{ question.answer_set.count }})</a>
+                            <a class="navbar">{{ question.create_date }}</a>
+                            <a class="navbar" >Tags:</a>
+                            {% for t in question.tags.all %}
+                                <a class="navbar pl-1" href="{% url 'tag__' t %}">{{ t }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {%  endfor %}
+        </div>
+    {% endblock left_content %}
+    <div class="col-4 mt-3">
+        <div class="row ml-3">
+            <h3 class=" ml-3">Popular Tags</h3>
+        </div>
+        <div class="row ml-3 mr-5" >
+            {% for tag in tags %}
+                <a class="navbar  text-dark" href="{% url 'tag__' tag %}" >{{ tag }}</a>
+            {% endfor %}
+        </div>
+        <div class="col">
+            <h4 class="navbar" >Best Members</h4>
+            {% for user in users %}
+                <a class="navbar  text-primary" href="#">{{ user.username }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% block pagination %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination ml-4">
+            {% if questions.has_previous %}
+                <li class="page-item"><a class="page-link text-dark" href="?page=1">&laquo; first</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="?page={{ questions.previous_page_number }}">{{ questions.previous_page_number }}</a>
+            {% endif %}
+            <li class="page-item "><a class="page-link text-primary" href="#">{{ questions.number }}</a>
+            {% if questions.has_next %}
+                <li class="page-item"><a class="page-link text-dark" href="?page={{ questions.next_page_number }}">{{ questions.next_page_number }}</a>
+                <li class="page-item"><a class="page-link text-dark" href="?page={{ questions.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock pagination %}
+</div>
+</body>
+</html>
+
+
