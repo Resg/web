@@ -26,7 +26,7 @@ SECRET_KEY = '_zg16tgn%tejd%aq8r$s^1ll4yc#ok8c5!cwvwo-8xwr@5ad3!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 MEDIA_URL = '/static/media/'
 # STATIC_ROOT = '/home/serey/PycharmProjects/ask_panichev/ask/static/'

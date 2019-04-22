@@ -1,0 +1,26 @@
+{% extends 'ask/base.html' %}
+{% load static %}
+{% block header %}
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark p-2" style="height:6em">
+          <a class="navbar-brand ml-3" href="{% url 'question_list'  %}">Ask Panichev</a>
+          <form class="form-control form-check-inline bg-dark border-0 mt-md-0 mr-5 ">
+              <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0 bg-white" type="submit">Ask</button>
+          </form>
+          <img src={% static "ask/img_00891.jpg" %} alt="text" width="60" height="60" class="rounded-circle">
+          <b class="col-2 ml">
+              <a class="navbar text-white" href="{% url 'user' cur_user.id %}">{{ cur_user.username }}</a>
+              <div class="row">
+                  <a class="navbar ml-3 text-white" href="settings">Settings</a>
+                  <a class="navbar ml-3 text-white"  href="login" >Log out</a>
+              </div>
+          </b>
+      </nav>
+    </header>
+{% endblock header %}
+{% block left_content %}
+    <div class="col-8 "></div>
+{% endblock left_content %}
+{% block pagination %}
+{% endblock pagination %}

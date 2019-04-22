@@ -32,20 +32,24 @@
     {% block left_content %}
         <div class="col-8 ">
             <div class="d-flex flex-column flex-md-row px-md-4 bg-white">
-                <h2 class="navbar text-dark pl-0 pt-0">News</h2>
+                <h2 class="navbar text-dark pl-0 pt-0" >News</h2>
                 <nav class="navbar pt-0" href="#">
-                    <a class="text-dark" href="#">Hot Questions</a>
+                    <a class="text-dark" href="{% url 'question_rate' %}">Hot Questions</a>
                 </nav>
             </div>
             {% for question in questions %}
                 <div class="row border rounded ml-4 mb-4">
                     <div class="col-2 mt-2 ">
                         <a class="row ml-2 mt-1 mb-1">
-                            <img src={{ MEDIA_URL }}{{ question.author.upload.url }} alt="img_00891.jpg" height="60" width="60" class="rounded">
+                            {% if question.author.upload %}
+                                <img src={{ MEDIA_URL }}{{ question.author.upload.url }} alt="img_00891.jpg" height="60" width="60" class="rounded">
+                            {% else %}
+                                <img src={% static "ask/portret.jpg" %} alt="" height="60" width="60" class="rounded">
+                            {% endif %}
                         </a>
                         <div class="row  mt-1 mb-1">
                             <div class="mt-2 ml-4">
-                                <input style="width: 2em;" class="rounded-circle" >
+                                <input style="width: 2em;" class="rounded-circle text-center" placeholder="{{ question.questionlike_set.count }}" >
                             </div>
                             <div class="col">
                                 <div>
@@ -58,18 +62,20 @@
                         </div>
                     </div>
                     <div class="col-10">
-                        <a class="navbar text-dark pl-0" href="{% url 'question' question.title%}">
+                        <a class="navbar text-dark pl-0" href="{% url 'question' question.id %}">
                             <font size="+2">{{ question.title }}</font>
                         </a>
-                        <a>{{ question.text }}
-                        </a>
+                        <div>
+                            <a>{{ question.text }}</a>
+                        </div>
+                        <a class="nav">Author: {{ question.author }}</a>
                         <div class="row">
-                            <a class="navbar" href="{% url 'question' question.title%}">answers({{ question.answer_set.count }})</a>
-                            <a class="navbar">{{ question.create_date }}</a>
+                            <a class="navbar text-dark" href="{% url 'question' question.id %}">answer({{ question.answer_set.count }})</a>
                             <a class="navbar" >Tags:</a>
                             {% for t in question.tags.all %}
-                                <a class="navbar pl-1" href="{% url 'tag__' t %}">{{ t }}</a>
+                                <a class="navbar pl-1" href="{% url 'tag__' t %}" >{{ t.title }}</a>
                             {% endfor %}
+                            <a class="navbar">{{ question.create_date }}</a>
                         </div>
                     </div>
                 </div>
@@ -93,21 +99,8 @@
         </div>
     </div>
 </div>
-{% block pagination %}
-    <nav aria-label="Page navigation example">
-        <ul class="pagination ml-4">
-            {% if questions.has_previous %}
-                <li class="page-item"><a class="page-link text-dark" href="?page=1">&laquo; first</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="?page={{ questions.previous_page_number }}">{{ questions.previous_page_number }}</a>
-            {% endif %}
-            <li class="page-item "><a class="page-link text-primary" href="#">{{ questions.number }}</a>
-            {% if questions.has_next %}
-                <li class="page-item"><a class="page-link text-dark" href="?page={{ questions.next_page_number }}">{{ questions.next_page_number }}</a>
-                <li class="page-item"><a class="page-link text-dark" href="?page={{ questions.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </ul>
-    </nav>
-{% endblock pagination %}
+{% block paginate %}
+{% endblock %}
 </div>
 </body>
 </html>
